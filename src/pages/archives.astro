@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import BlogCard from "../components/BlogCard.astro";
+
+const posts = await getCollection("blog", ({ data }) => {
+  return data;
+});
+console.log (posts)
+---
+
+<Layout title="blog">
+  <section class="p-8">
+    <h1 class="text-4xl font-bold mb-6">Blog</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        posts.map((post) => (
+          <BlogCard
+            key={post.id}
+            post={post}/>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

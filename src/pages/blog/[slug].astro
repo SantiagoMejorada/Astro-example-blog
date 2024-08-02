@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import type { BlogPost } from "../../types/interfaces";
+
+export async function getStaticPaths() {
+  // Obtén todas las publicaciones de la colección
+  const posts = await getCollection('blog');
+
+  // Retorna un array de rutas dinámicas
+  return posts.map(post => ({
+    params: { slug: post.slug }
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await getCollection('blog').then(posts => posts.find(p => p.slug === slug));
+console.log(post)
+const { data } = post as unknown as { data: BlogPost };
+const { Content} = await post.render();
+---
+
+<Layout title="blog">
+  <article class="prose lg:prose-xl mx-auto py-8">
+    <h1>{data.title}</h1>
+    <div class="flex items-center mb-4">
+      <img
+        src={data.authorImage}
+        alt={data.author}
+        class="w-12 h-12 rounded-full mr-3"/>
+      <div>
+        <p class="text-base font-medium">{data.author}</p>
+        <p class="text-sm text-gray-500">{data.date}</p>
+      </div>
+    </div>
+    <img
+      src={data.mainImage}
+      alt={data.title}
+      class="w-full h-auto my-6 max-h-[400px] object-cover rounded-lg shadow-md"/>
+    <Content />
+  </article>
+</Layout>

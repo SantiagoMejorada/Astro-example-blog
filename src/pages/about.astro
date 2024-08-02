@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { projects } from "../data/projects";
+import ProjectCard from "../components/ProjectCard.astro";
+---
+
+<Layout title="About">
+  <section class="bg-white shadow-md p-8 rounded-lg mb-8">
+    <h1 class="text-4xl font-bold mb-4">About me</h1>
+    <p class="text-lg mb-8">
+      Hi, I'm Santiago Mejorada, a passionate front end developer and blogger.
+    </p>
+    
+    <p class="text-lg mb-8">
+      As a passionate Software Developer with a specialization in front-end
+      application development, I've dedicated the last five years to crafting
+      intuitive and dynamic user interfaces. Leveraging my expertise in
+      JavaScript, TypeScript, and Vue, I've successfully delivered projects that
+      are not only visually appealing but also highly functional.
+    </p>
+
+    <h2 class="text-3xl font-bold mb-4">Projects</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</Layout>

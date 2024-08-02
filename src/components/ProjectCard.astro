@@ -1,0 +1,19 @@
+---
+import type { Project } from "../types/interfaces";
+
+const { project } =  Astro.props as { project: Project };
+---
+
+<div class="flex flex-col border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-white">
+    <img src={project.image} alt={project.technology} 
+    class="w-full h-40 object-cover">
+    <div class="p-4 flex-1 flex-col justify-between">
+        <div>
+            <h2 class="text-xl font-semibold mb-2">{project.title}</h2>
+            <p class="text-sm text-gray-600 mb-2">Technology: {project.technology}</p>
+            <p class="text-sm text-gray-600">Year: {project.year}</p>
+        </div>
+        <a href={project.github} target="_blank" rel="noopener noreferrer" class="mt-4 text-blue-600 hover:underline self-start">View on GitHub</a>
+        <a href="google.com" target="_blank" rel="noopener noreferrer" class="mt-4 text-blue-600 hover:underline self-start">View on GitHub</a>
+    </div>
+</div>

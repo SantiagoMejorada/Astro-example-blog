@@ -1,28 +1,28 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import type { BlogPost } from "../../types/interfaces";
 
 export async function getStaticPaths() {
-  // Obtén todas las publicaciones de la colección
   const posts = await getCollection('blog');
 
-  // Retorna un array de rutas dinámicas
   return posts.map(post => ({
-    params: { slug: post.slug }
+    params: { slug: post.slug },
+    props: post
   }));
 }
+type Props = CollectionEntry<'blog'>;
+const post = Astro.props;
 
-const { slug } = Astro.params;
-const post = await getCollection('blog').then(posts => posts.find(p => p.slug === slug));
-console.log(post)
+
 const { data } = post as unknown as { data: BlogPost };
-const { Content} = await post.render();
+const { Content } = await post.render();
+console.log(Content)
 ---
 
 <Layout title="blog">
   <article class="prose lg:prose-xl mx-auto py-8">
-    <h1>{data.title}</h1>
+    <h1 class="mb-8 text-4xl">{data.title}</h1>
     <div class="flex items-center mb-4">
       <img
         src={data.authorImage}

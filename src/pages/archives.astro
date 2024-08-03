@@ -6,7 +6,6 @@ import BlogCard from "../components/BlogCard.astro";
 const posts = await getCollection("blog", ({ data }) => {
   return data;
 });
-console.log (posts)
 ---
 
 <Layout title="blog">

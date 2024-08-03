@@ -1,15 +1,16 @@
-import { defineCollection } from "astro:content";
+import { z, defineCollection } from "astro:content";
 import type { BlogPost } from "../types/interfaces";
 
 const BlogPosts = {
-    blog: defineCollection<BlogPost>({
-        schema: {
-            title: 'string',
-            author: 'string',
-            date: 'string',
-            authorImage: 'string',
-            mainImage: 'string',
-        }
+    blog: defineCollection({
+        type: 'content',
+        schema: z.object({
+            title: z.string(),
+            author: z.string(),
+            date: z.string(),
+            authorImage: z.string(),
+            mainImage: z.string(),
+        })
     })
 }
 
